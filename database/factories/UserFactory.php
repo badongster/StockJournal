@@ -29,7 +29,7 @@ $factory->define(User::class, function (Faker $faker) {
         'password' => $password ?: $password = bcrypt('secret'), // '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => str_random(10),
         'verified' => $verified = $faker->randomElement([User::VERIFIED_USER, User::UNVERIFIED_USER]),
-        'verified' => $verified = $faker->randomElement([User::ADMIN_USER, User::REGULAR_USER]),
+        'admin' => $verified = $faker->randomElement([User::ADMIN_USER, User::REGULAR_USER]),
         'verification_token' => $verified == User::VERIFIED_USER ? null : User::generateVerificationCode(),
     ];
 });
@@ -46,7 +46,7 @@ $factory->define(Product::class, function (Faker  $faker){
         'name' => $faker->word,
         'description' => $faker->paragraph(1),
         'quantity' => $faker->numberBetween(1, 10),
-        'status' => $faker->randomElement([Product::AVAILABLE_PRODUCT. Product::UNAVAILABLE_PRODUCT]),
+        'status' => $faker->randomElement([Product::AVAILABLE_PRODUCT, Product::UNAVAILABLE_PRODUCT]),
         'image' => $faker->randomElement(['1.jpg','2.jpg','3.jpg']),
         'seller_id' => User::all()->random()->id,
         // User::inRandomOrder()->first()->id
